@@ -1,6 +1,6 @@
 
 ---
-title: "Homework 3"
+title: "Heart Failure"
 author: "Courtney Gale"
 date: "`r format(Sys.Date(), '%Y-%m-%d')`"
 output: html_document
