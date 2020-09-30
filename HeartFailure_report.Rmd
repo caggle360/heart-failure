@@ -22,9 +22,11 @@ library(data.table)
 # Import data directly from PLOS ONE (link pulled from Kaggle)
 URL <- "https://plos.figshare.com/ndownloader/files/8937223"
 
+# If the file has not already been downloaded to your folder
 destfile <- paste0(getwd(), "/heartfailure.csv")
-
-download.file(URL, destfile)
+if (!file.exists(destfile)) {
+  download.file(URL, destfile)
+}
 
 # Load CSV into R Session
 data <- read.csv(destfile, header = TRUE, sep = ",")
