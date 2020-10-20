@@ -1,0 +1,77 @@
+
+---
+title: "Heart Failure"
+author: "Courtney Gale"
+date: "`r format(Sys.Date(), '%Y-%m-%d')`"
+output: html_document
+---
+
+This script summarizes variables from a dataset from kaggle on heart failure. More information about the dataset can be found at this website https://www.kaggle.com/andrewmvd/heart-failure-clinical-data. 
+
+$~$
+
+
+```{r, setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+library(gt)
+library(dplyr)
+library(survival)
+
+source("../functions/good_round.R")
+```
+
+```{r, importData}
+
+# Load CSV into R Session
+data <- read.csv("../Clean_Data/cleaned_data.csv", header = TRUE, sep = ",")
+
+# Convert binary variables to factors so we can summarize each variable correctly
+colsToFactor <- c("heart_failure", "sex", "smoker", "diabetic", "high_BP", "anemic")
+data[colsToFactor] <- lapply(data[colsToFactor], factor)
+```
+
+$~$
+
+There are `r nrow(data)` observations and `r ncol(data)` columns in this dataset.
+The first 6 rows of the dataset can be observed below
+
+$~$
+
+```{r, rows}
+data_sub <- head(data)
+
+gt_first6 <-
+  gt(data_sub) %>%
+    tab_header(title = "First 6 Rows of Heart Failure Data")
+
+# Print first six rows of data  
+gt_first6
+```
+
+$~$
+
+The following table prints the mean for each continuous variable in our dataset by heart failure status.
+
+![Table 1](../Figures_Tables/Demographics_Cont.png){width=550px}
+
+$~$
+
+The following table prints summary statistics for each discrete variable in our dataset. We can see that the groups are fairly similar in the percentages of subjects who have a certain characteristic in a group. A higher percentage of subjects in the group that experienced heart failure had high blood pressure and were anemic. 
+
+![Table 2](../Figures_Tables/Demographics_Discrete.png){width=750px}
+ 
+$~$
+
+Investigate if there is a difference in survival by high blood pressure status. Since we have censored data, we will use the logRank to look at any potential differences. 
+
+```{r, logrank}
+logRank <- survdiff(Surv(follow_up_days, as.numeric(heart_failure)) ~ high_BP, rho = 0, data = data)
+logRank 
+
+chisq = logRank$chisq
+pvalue = pchisq(logRank$chisq, df = 1, lower.tail = FALSE)
+```
+
+We can see that there is a significant difference in survival by high blood pressure status (Chi-Squared: `r good_round(chisq, digits = 2)`, p-value: `r good_round(pvalue,  digits = 3)`)
+
+![Figure 1](../Figures_Tables/SurvivalCurve.png)
