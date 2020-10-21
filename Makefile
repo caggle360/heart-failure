@@ -28,7 +28,7 @@ Raw_Data/heartfailure.csv: R/01_importData.R
 	chmod +x R/01_importData.R && \
 	Rscript R/01_importData.R
 
-install: R/OO_install.R
+install: R/00_install.R
 	chmod +x R/00_install.R && \
 	Rscript R/00_install.R
 
