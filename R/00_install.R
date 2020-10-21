@@ -6,7 +6,7 @@ installed_pkgs <- row.names(installed.packages())
 pkgs <- c("gt", "dplyr", "data.table", "survival", "survminer")
 for(p in pkgs){
 	if(!(p %in% installed_pkgs)){
-		install.packages(p)
+		install.packages(p, , repos="http://cran.us.r-project.org")
 	}
 }
 
