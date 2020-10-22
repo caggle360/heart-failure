@@ -1,3 +1,5 @@
+#! /usr/local/bin/Rscript
+
 # 01_cleanData.R renames variables and coverts binary variables to factors
 
 data <- read.csv("Raw_Data/heartfailure.csv", header = TRUE, sep = ",")

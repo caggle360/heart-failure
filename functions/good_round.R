@@ -1,3 +1,5 @@
+#! /usr/local/bin/Rscript
+
 # Functions for rounding data values
 
 good_round <- function(x, digits = 2, pval = FALSE){

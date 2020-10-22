@@ -1,3 +1,4 @@
+#! /usr/local/bin/Rscript 
 
 # Get package names that are already installed
 installed_pkgs <- row.names(installed.packages())

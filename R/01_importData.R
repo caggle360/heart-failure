@@ -1,3 +1,5 @@
+#! /usr/local/bin/Rscript
+
 # 00_importData.R file downloads the data and puts it in the Raw_data folder
 
 # Import data directly from PLOS ONE (link pulled from Kaggle)

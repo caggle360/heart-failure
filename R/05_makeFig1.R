@@ -1,3 +1,5 @@
+#! /usr/local/bin/Rscript
+
 # Load libraries
 library(survival)
 library(survminer)

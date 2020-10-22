@@ -1,3 +1,4 @@
+#! /usr/local/bin/Rscript 
 
 # Import rounding function
 source("functions/good_round.R")
