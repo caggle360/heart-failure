@@ -1,16 +1,15 @@
 #! /usr/local/bin/Rscript
 
 # Load libraries
-library(survival)
-library(survminer)
-
-source("functions/good_round.R")
+library(ggplot2)
 
 # Load the data
 data <- read.csv("Clean_Data/cleaned_data.csv", header = TRUE, sep = ",")
 
-# Fit a Kaplan-Meier curve
-KM <- survfit(Surv(follow_up_days, heart_failure) ~ high_BP, data = data)
-png("Figures_Tables/SurvivalCurve.png")
-ggsurvplot(KM, title = "Survival curves by blood pressure status", data = data)
+png("Figures_Tables/Boxplot.png")
+ggplot(data, aes(x = factor(heart_failure), y = age, color = factor(heart_failure))) + geom_boxplot() +
+  theme(legend.position = "none") +
+  ggtitle("Age by heart failure status") +
+  xlab("Heart Failure status") +
+  ylab("Frequency")
 dev.off()

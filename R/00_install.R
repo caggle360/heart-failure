@@ -4,7 +4,7 @@
 installed_pkgs <- row.names(installed.packages())
 
 # Packages that need to be installed for this to work
-pkgs <- c("gt", "dplyr", "data.table", "survival", "survminer")
+pkgs <- c("gt", "data.table", "webshot")
 for(p in pkgs){
 	if(!(p %in% installed_pkgs)){
 		install.packages(p, , repos="http://cran.us.r-project.org")

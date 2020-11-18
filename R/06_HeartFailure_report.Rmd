@@ -15,7 +15,6 @@ $~$
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 library(gt)
 library(dplyr)
-library(survival)
 
 source("../functions/good_round.R")
 ```
@@ -62,16 +61,6 @@ The following table prints summary statistics for each discrete variable in our 
  
 $~$
 
-Investigate if there is a difference in survival by high blood pressure status. Since we have censored data, we will use the logRank to look at any potential differences. 
+Let's look at a boxplot of age stratified by heart failure status.
 
-```{r, logrank}
-logRank <- survdiff(Surv(follow_up_days, as.numeric(heart_failure)) ~ high_BP, rho = 0, data = data)
-logRank 
-
-chisq = logRank$chisq
-pvalue = pchisq(logRank$chisq, df = 1, lower.tail = FALSE)
-```
-
-We can see that there is a significant difference in survival by high blood pressure status (Chi-Squared: `r good_round(chisq, digits = 2)`, p-value: `r good_round(pvalue,  digits = 3)`)
-
-![Figure 1](../Figures_Tables/SurvivalCurve.png)
+![Figure 1](../Figures_Tables/Boxplot.png)

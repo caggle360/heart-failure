@@ -1,10 +1,10 @@
 
 # rule for creating first demographic table for continuous variables
+.PHONY: report
+report: R/06_HeartFailure_report.Rmd Figures_Tables/Boxplot.png Figures_Tables/Demographics_Discrete.png Figures_Tables/Demographics_Cont.png Clean_Data/cleaned_data.csv
+	Rscript -e "rmarkdown::render('R/06_HeartFailure_report.Rmd', quiet = TRUE, output_file = '../output/report.html')"
 
-report: R/06_HeartFailure_report.Rmd Figures_Tables/SurvivalCurve.png Figures_Tables/Demographics_Discrete.png Figures_Tables/Demographics_Cont.png Clean_Data/cleaned_data.csv
-	Rscript -e "rmarkdown::render('R/06_HeartFailure_report.Rmd', quiet = TRUE, output_file = '../report.html')"
-
-Figures_Tables/SurvivalCurve.png: R/05_makeFig1.R Clean_Data/cleaned_data.csv
+Figures_Tables/Boxplot.png: R/05_makeFig1.R Clean_Data/cleaned_data.csv
 	chmod +x R/05_makeFig1.R && \
 	Rscript R/05_makeFig1.R	
 
@@ -32,12 +32,17 @@ install: R/00_install.R
 	chmod +x R/00_install.R && \
 	Rscript R/00_install.R
 
+.PHONY: build
+build:
+	docker build -t cgale108/heartfailure .
+
 .PHONY: help
 help:
 	@echo "report                                   : Generates final analysis html report"
-	@echo "Figures_Tables/SurvivalCurve.png         : Generates .png file for the survival plot"
+	@echo "Figures_Tables/Boxplot.png         		: Generates .png file of a boxplot for age by heart failure status"
 	@echo "Figures_Tables/Demographics_Discrete.png : Generates a .png file for the Table for Demographic Discrete data"
 	@echo "Figures_Tables/Demographics_Cont.png     : Generates a .png file for the Table for Demographic Continuous data"
 	@echo "Clean_Data/cleaned_data.csv              : Cleans the data and creates the cleaned data set in a csv file"
 	@echo "Raw_Data/heartfailure.csv                : Downloads the heartfailure csv file from URL"
 	@echo "install                                  : Checks already installed packages and install needed packages that are not already installed"
+	@echo "build									: Builds a docker image
