@@ -45,4 +45,4 @@ help:
 	@echo "Clean_Data/cleaned_data.csv              : Cleans the data and creates the cleaned data set in a csv file"
 	@echo "Raw_Data/heartfailure.csv                : Downloads the heartfailure csv file from URL"
 	@echo "install                                  : Checks already installed packages and install needed packages that are not already installed"
-	@echo "build									: Builds a docker image
+	@echo "build									: Builds a docker image"
